@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!-- Medium Style Editor -->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/blog.css">
+   
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"> 
+</head>
+<body class="loader">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light techfont">
+        <div class="container">
+        <a class="navbar-brand bigbrand" href="{% url 'post_list' %}"> <img src="https://www.clipartmax.com/png/middle/89-891042_letter-b-logo-design-free-b-letter-logo-design-png.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">My Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="navbar-light">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://www.github.com">Github</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://www.Linkedin.com">Linkedin</a>
+              </li>
+            </ul>
+
+            <ul class='nav navbar-nav navbar-right '>
+                {% if user.is_authenticated %}
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                     <li class="navbar-light">
+                         <a class="nav-link" href="{% url 'post_new' %}">New Post</a>
+                     </li>
+                <li>
+                    <a class="nav-link" href="{% url 'post_draft_list' %}">Draft</a>
+                </li>
+                
+                <li>
+                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                </li>
+                
+                <li>
+                    <a class="nav-link">{{user.username}}</a>
+                </li>
+                </div>
+                {% else %}
+                
+                <li>
+                    <a class ='nav navbar-right' href="{% url 'login' %}"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+  <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+  <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+</svg></a>
+                </li>
+                {% endif %}
+            </ul>
+            </div>
+        </div>
+        </nav>
+
+        <div class="context container " >
+            <div class="row" >
+                <div class="col-md-8">
+                    <div class="blog_posts">
+                        {% block content %}
+                       
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>
